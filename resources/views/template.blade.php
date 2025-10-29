@@ -83,6 +83,7 @@
     @include('includes.footer_script')
 
     @stack('scripts')
+    @yield('scripts')
     <!-- JS footer end -->
 
 

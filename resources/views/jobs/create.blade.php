@@ -285,11 +285,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         ClassicEditor
             .create(document.querySelector('#description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                minHeight: '300px'
             })
             .then(editor => {
                 window.descriptionEditor = editor;
                 console.log('Description editor initialized');
+                
+                // Set minimum height for the editing area
+                const editingView = editor.editing.view;
+                editingView.change(writer => {
+                    writer.setStyle('min-height', '300px', editingView.document.getRoot());
+                });
                 
                 // Real-time sync: Update textarea whenever content changes
                 editor.model.document.on('change:data', () => {
@@ -304,11 +311,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ClassicEditor
             .create(document.querySelector('#responsibilities'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                minHeight: '300px'
             })
             .then(editor => {
                 window.responsibilitiesEditor = editor;
                 console.log('Responsibilities editor initialized');
+                
+                // Set minimum height for the editing area
+                const editingView = editor.editing.view;
+                editingView.change(writer => {
+                    writer.setStyle('min-height', '300px', editingView.document.getRoot());
+                });
                 
                 // Real-time sync: Update textarea whenever content changes
                 editor.model.document.on('change:data', () => {
@@ -323,11 +337,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ClassicEditor
             .create(document.querySelector('#requirements'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                minHeight: '300px'
             })
             .then(editor => {
                 window.requirementsEditor = editor;
                 console.log('Requirements editor initialized');
+                
+                // Set minimum height for the editing area
+                const editingView = editor.editing.view;
+                editingView.change(writer => {
+                    writer.setStyle('min-height', '300px', editingView.document.getRoot());
+                });
                 
                 // Real-time sync: Update textarea whenever content changes
                 editor.model.document.on('change:data', () => {
@@ -365,7 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
         citySelect.innerHTML = '<option value="">Select City</option>';
         
         if (countryId) {
-            fetch(`/get-job-cities/${countryId}`)
+            fetch(`{{ route('getJobCities', '') }}/${countryId}`)
                 .then(response => response.json())
                 .then(cities => {
                     cities.forEach(city => {

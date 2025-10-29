@@ -31,7 +31,7 @@ class AuthController extends Controller
             // Session regenerate karo
             $request->session()->regenerate();
             // Dashboard ya intended page pe redirect
-            return redirect()->intended('dashboard');
+            return redirect()->intended(route('dashboard.index'));
         }
 
         return back()->with('error', 'Invalid email or password');

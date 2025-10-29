@@ -14,9 +14,12 @@ class CityController extends Controller
      */
     public function index()
     {
-          $allCity = city::with('iqraKhan')->paginate(5); 
+          // Show only Pakistan cities (country_id = 1)
+          $allCity = city::with('iqraKhan')
+                        ->where('country_id', 1)
+                        ->orderBy('city_id', 'desc')
+                        ->paginate(10); 
           
-        //  $allCity = city::all();
         $pageName = 'All Cities';
         return view('city.index', compact('pageName','allCity'));
     }
@@ -36,19 +39,24 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'country' => 'required|exists:country,country_id',
             'city' => 'required|string|max:100|unique:city,city_name',
-
+            'city_description' => 'nullable|string',
+        ], [
+            'country.required' => 'Country is required.',
+            'country.exists' => 'Selected country is invalid.',
+            'city.required' => 'City name is required.',
+            'city.unique' => 'This city already exists.',
         ]);
 
         city::create([
             'country_id' => $request->country,
-            'city_name' => $request->city
+            'city_name' => $request->city,
+            'city_description' => $request->city_description
         ]);
 
-        return redirect()->route('city.index')->with('success', 'city added successfully!');
+        return redirect()->route('city.index')->with('success', 'City added successfully!');
     }
 
     /**
@@ -64,8 +72,8 @@ class CityController extends Controller
      */
 public function edit(string $id)
 {
-    $city = city::findOrFail($id);   // city ka record find karo
-    $allCountry = country::all();    // dropdown ke liye sab countries lao
+    $city = city::findOrFail($id);
+    $allCountry = country::all();
     $pageName = 'Edit City';
     return view('city.edit', compact('pageName', 'city', 'allCountry'));
 }
@@ -75,12 +83,19 @@ public function update(Request $request, string $id)
     $request->validate([
         'country' => 'required|exists:country,country_id',
         'city' => 'required|string|max:100|unique:city,city_name,' . $id . ',city_id',
+        'city_description' => 'nullable|string',
+    ], [
+        'country.required' => 'Country is required.',
+        'country.exists' => 'Selected country is invalid.',
+        'city.required' => 'City name is required.',
+        'city.unique' => 'This city already exists.',
     ]);
 
     $city = city::findOrFail($id);
     $city->update([
         'country_id' => $request->country,
         'city_name' => $request->city,
+        'city_description' => $request->city_description,
     ]);
 
     return redirect()->route('city.index')->with('success', 'City updated successfully!');

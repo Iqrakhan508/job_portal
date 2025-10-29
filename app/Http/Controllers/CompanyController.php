@@ -12,7 +12,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $allCompany = Company::orderBy('id', 'desc')->paginate(5);
+        $allCompany = Company::orderBy('id', 'desc')->paginate(10);
         $pageName = 'All Companies';
         return view('company.index', compact('pageName', 'allCompany'));
     }
@@ -33,16 +33,19 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'website' => 'nullable|string|max:255|url',
+            'industry' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'company_size' => 'nullable|string|max:255',
             'description' => 'nullable|string',
         ], [
             'name.required' => 'Company name is required.',
-            'website.url' => 'Please enter a valid website URL.',
         ]);
 
         Company::create([
             'name' => $request->name,
-            'website' => $request->website,
+            'industry' => $request->industry,
+            'location' => $request->location,
+            'company_size' => $request->company_size,
             'description' => $request->description,
         ]);
 
@@ -73,17 +76,20 @@ class CompanyController extends Controller
         // Validation
         $request->validate([
             'name' => 'required|string|max:255',
-            'website' => 'nullable|string|max:255|url',
+            'industry' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'company_size' => 'nullable|string|max:255',
             'description' => 'nullable|string',
         ], [
             'name.required' => 'Company name is required.',
-            'website.url' => 'Please enter a valid website URL.',
         ]);
 
         // Update
         $company = Company::findOrFail($id);
         $company->name = $request->name;
-        $company->website = $request->website;
+        $company->industry = $request->industry;
+        $company->location = $request->location;
+        $company->company_size = $request->company_size;
         $company->description = $request->description;
         $company->save();
 

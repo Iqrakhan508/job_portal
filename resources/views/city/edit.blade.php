@@ -6,7 +6,8 @@
     @csrf
     @method('PUT')
 
-    <div class="form-group row"><label class="col-lg-2 col-form-label">Country Name</label>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label">Country Name</label>
         <div class="col-lg-10">
             <select name="country" class="form-control">
                 <option value="">Select Country</option>
@@ -26,6 +27,12 @@
         </div>
     </div>
 
+    <div class="form-group row"><label class="col-lg-2 col-form-label">City Description</label>
+        <div class="col-lg-10">
+            <textarea name="city_description" id="city_description" class="form-control" rows="6">{{ old('city_description', $city->city_description) }}</textarea>
+        </div>
+    </div>
+
     <div class="form-group row">
         <div class="col-lg-offset-2 col-lg-12 d-flex justify-content-end">
             <button class="btn btn-sm btn-primary" type="submit">Update</button>
@@ -33,4 +40,40 @@
     </div>
 </form>
 
+@endsection
+
+@section('scripts')
+<!-- CKEditor CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize CKEditor for city description
+    if (typeof ClassicEditor !== 'undefined') {
+        ClassicEditor
+            .create(document.querySelector('#city_description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                minHeight: '500px'
+            })
+            .then(editor => {
+                window.cityDescriptionEditor = editor;
+                console.log('City description editor initialized');
+                
+                // Set minimum height for the editing area
+                const editingView = editor.editing.view;
+                editingView.change(writer => {
+                    writer.setStyle('min-height', '500px', editingView.document.getRoot());
+                });
+                
+                // Real-time sync: Update textarea whenever content changes
+                editor.model.document.on('change:data', () => {
+                    const data = editor.getData();
+                    document.querySelector('#city_description').value = data;
+                });
+            })
+            .catch(error => {
+                console.error('Error initializing city description editor:', error);
+            });
+    }
+});
+</script>
 @endsection

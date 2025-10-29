@@ -8,7 +8,6 @@
         <tr>
             <th>Sr #</th>
             <th>Title</th>
-            <th>Company</th>
             <th>Category</th>
             <th>Location</th>
             <th>Type</th>
@@ -23,7 +22,6 @@
         <tr>
             <td>{{ $item->id }}</td>
             <td>{{ $item->title }}</td>
-            <td>{{ $item->company ? $item->company->name : 'N/A' }}</td>
             <td>{{ $item->category ? $item->category->name : 'N/A' }}</td>
             <td>{{ $item->city ? $item->city->city_name : 'N/A' }}, {{ $item->country ? $item->country->country_name : 'N/A' }}</td>
             <td>{{ $item->jobType ? $item->jobType->name : 'N/A' }}</td>

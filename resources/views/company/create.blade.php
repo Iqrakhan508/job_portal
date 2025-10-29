@@ -15,10 +15,28 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-lg-2 col-form-label">Website</label>
+        <label class="col-lg-2 col-form-label">Industry</label>
         <div class="col-lg-10">
-            <input type="text" name="website" class="form-control"
-                   value="{{ old('website') }}">
+            <input type="text" name="industry" class="form-control"
+                   value="{{ old('industry') }}" placeholder="e.g. Technology, Software, Marketing">
+            
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label">Location</label>
+        <div class="col-lg-10">
+            <input type="text" name="location" class="form-control"
+                   value="{{ old('location') }}" placeholder="e.g. Karachi, Lahore">
+            
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label">Company Size</label>
+        <div class="col-lg-10">
+            <input type="text" name="company_size" class="form-control"
+                   value="{{ old('company_size') }}" placeholder="e.g. 50-100 employees, 100-500 employees">
             
         </div>
     </div>

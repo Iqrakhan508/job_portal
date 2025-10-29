@@ -12,7 +12,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $allSkill = Skill::orderBy('id', 'desc')->paginate(5);
+        $allSkill = Skill::orderBy('id', 'desc')->paginate(10);
         $pageName = 'All Skills';
         return view('skill.index', compact('pageName', 'allSkill'));
     }

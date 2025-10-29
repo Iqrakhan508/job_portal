@@ -15,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $allUser = User::with('countryNAME','cityNAME')->paginate(5);
+        $allUser = User::with('countryNAME','cityNAME')
+                       ->orderBy('user_id', 'desc')
+                       ->paginate(5);
         // $allUser = User::all();
         $pageName = 'All Users';
         return view('User.index', compact('pageName', 'allUser'));

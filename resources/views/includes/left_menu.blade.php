@@ -55,6 +55,12 @@
                         <a href="{{ route('company.index') }}"><i class="fa fa-building-o"></i> <span class="nav-label">Companies</span></a>
                     </li>
                     <li>
+                        <a href="{{ route('ads_company.index') }}"><i class="fa fa-plus-circle"></i> <span class="nav-label">Ads Companies</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ads_position.index') }}"><i class="fa fa-adn"></i> <span class="nav-label">Ads Position</span></a>
+                    </li>
+                    <li>
                         <a href="{{ route('jobs.index') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Jobs</span></a>
                     </li>
                     

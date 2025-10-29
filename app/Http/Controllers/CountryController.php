@@ -13,7 +13,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-         $allCountry = country::where('country_status', 1)->paginate(5); 
+         $allCountry = country::where('country_status', 1)
+                              ->orderBy('country_id', 'desc')
+                              ->paginate(10); 
         $pageName = 'All Countries';
         return view('country.index', compact('pageName', 'allCountry'));
     }
@@ -60,16 +62,15 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-public function edit($id)
+public function edit(string $id)
 {
-    $pageName = 'Edit Country';
     $country = Country::findOrFail($id);
-    return view('country.edit', compact('country', 'pageName'));
+    $pageName = 'Edit Country';
+    return view('country.edit', compact('pageName', 'country'));
 }
 
-public function update(Request $request, $id)
+public function update(Request $request, string $id)
 {
-    // Validation
     $request->validate([
         'country_name' => 'required|string|max:100|unique:country,country_name,' . $id . ',country_id',
     ], [
@@ -77,10 +78,10 @@ public function update(Request $request, $id)
         'country_name.unique' => 'This country already exists.',
     ]);
 
-    // Update
     $country = Country::findOrFail($id);
-    $country->country_name = $request->country_name;
-    $country->save();
+    $country->update([
+        'country_name' => $request->country_name,
+    ]);
 
     return redirect()->route('country.index')
                      ->with('success', 'Country updated successfully!');

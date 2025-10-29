@@ -9,7 +9,7 @@ class country extends Model
 {
     use HasFactory;
      protected $table = 'country'; 
-      protected $fillable = ['country_name'];
+      protected $fillable = ['country_name', 'country_status'];
     protected $primaryKey = 'country_id';   // Laravel ko batana hota hai ke kis column ko use kare as primary key.
 
     public function cityName() {

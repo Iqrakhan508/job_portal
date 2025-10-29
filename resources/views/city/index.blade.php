@@ -10,7 +10,8 @@
         <tr>
             <th>Sr #</th>
             <th>City Name</th>
-            <th>Country ID</th>
+            <th>Description</th>
+            <th>Country</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -21,6 +22,7 @@
         <tr>
             <td>{{$city->city_id}}</td>
             <td>{{$city->city_name}}</td>
+            <td>{!! Str::limit(strip_tags($city->city_description), 50) !!}</td>
             <td>{{$city->iqraKhan->country_name}}</td>
             <td>
                 @if ($city->city_status == 1)

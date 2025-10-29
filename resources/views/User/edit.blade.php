@@ -88,7 +88,7 @@ $(document).ready(function() {
         var country_id = $(this).val();
         if (country_id) {
             $.ajax({
-                url: '/get-cities/' + country_id,
+                url: '{{ route("getCities", "") }}/' + country_id,
                 type: 'GET',
                 success: function(data) {
                     var cityDropdown = $('#cityList');

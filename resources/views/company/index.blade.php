@@ -8,7 +8,9 @@
         <tr>
             <th>Sr #</th>
             <th>Company Name</th>
-            <th>Website</th>
+            <th>Industry</th>
+            <th>Location</th>
+            <th>Company Size</th>
             <th>Description</th>
             <th>Action</th>
         </tr>
@@ -18,13 +20,9 @@
         <tr>
             <td>{{$company->id}}</td>
             <td>{{$company->name}}</td>
-            <td>
-                @if($company->website)
-                    <a href="{{$company->website}}" target="_blank">{{$company->website}}</a>
-                @else
-                    -
-                @endif
-            </td>
+            <td>{{$company->industry ?? '-'}}</td>
+            <td>{{$company->location ?? '-'}}</td>
+            <td>{{$company->company_size ?? '-'}}</td>
             <td>{{ Str::limit($company->description, 50) }}</td>
             <td>
               <a href="{{ route('company.edit', $company->id) }}" class="btn btn-primary">
