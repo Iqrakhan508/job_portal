@@ -55,11 +55,7 @@
                         </li>
                     </ul>
                     
-                    <div class="d-flex align-items-center">
-                        <a href="{{ route('jobs') }}" style="color: #000 !important; text-decoration: none; font-weight: 500;">
-                            <i class="fas fa-search" style="color: #3498db;"></i> Search Jobs
-                        </a>
-                    </div>
+                    <!-- Removed search button/link from header -->
                 </div>
             </div>
         </nav>
@@ -88,8 +84,8 @@
                         <li><a href="{{ route('companies') }}">Companies</a></li>
                         <li><a href="{{ route('about') }}">About Us</a></li>
                         <li><a href="{{ route('contact') }}">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('disclaimer') }}">Disclaimer</a></li>
                     </ul>
                 </div>
                 

@@ -42,6 +42,9 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::match(['get', 'post'], '/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/login', [HomeController::class, 'login'])->name('public.login');
 Route::get('/register', [HomeController::class, 'register'])->name('register');
+// Static policy pages
+Route::view('/privacy-policy', 'public.privacy')->name('privacy');
+Route::view('/disclaimer', 'public.disclaimer')->name('disclaimer');
 
 // Admin root redirect - redirect to dashboard if logged in, otherwise to login
 Route::get('/admin', function () {
