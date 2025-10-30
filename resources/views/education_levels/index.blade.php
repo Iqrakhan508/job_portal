@@ -1,4 +1,4 @@
-@extends('Template')
+@extends('template')
 
 @section('content')
 <a href="{{ route('education_levels.create') }}" class="btn btn-w-m btn-primary mb-2"> Add New Education Level </a>

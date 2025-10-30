@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\country;
-use App\Models\city;
+use App\Models\Country;
+use App\Models\City;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller

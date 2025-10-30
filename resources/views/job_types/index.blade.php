@@ -1,4 +1,4 @@
-@extends('Template')
+@extends('template')
 
 @section('content')
 <a href="{{ route('job_types.create') }}" class="btn btn-w-m btn-primary mb-2"> Add New Job Type </a>
