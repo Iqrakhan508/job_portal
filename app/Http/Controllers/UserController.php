@@ -31,15 +31,15 @@ class UserController extends Controller
     {
        
        
-        $allCountry = country::all();
-        $allCity = city::all();
+        $allCountry = Country::all();
+        $allCity = City::all();
         $pageName = 'add user';
         return view('Register', compact('pageName', 'allCountry', 'allCity'));
         
     }
 public function getCities($country_id)
 {
-    $cities = city::where('country_id', $country_id)->get();
+    $cities = City::where('country_id', $country_id)->get();
     return response()->json($cities);
 }
 
@@ -88,8 +88,8 @@ public function getCities($country_id)
     public function edit(string $id)
     { 
      $user = User::findOrFail($id);
-    $allCountry = country::all();
-    $allCity = city::where('country_id', $user->country_id)->get();
+    $allCountry = Country::all();
+    $allCity = City::where('country_id', $user->country_id)->get();
     $pageName = 'Edit User';
     return view('User.edit', compact('pageName','user','allCountry','allCity'));
     }

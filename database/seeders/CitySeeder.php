@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\city;
+use App\Models\City;
 
 class CitySeeder extends Seeder
 {
@@ -37,7 +37,7 @@ class CitySeeder extends Seeder
         ];
 
         foreach ($cities as $city) {
-            city::create($city);
+            City::create($city);
         }
     }
 }

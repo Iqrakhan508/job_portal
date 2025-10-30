@@ -15,7 +15,7 @@ class CityController extends Controller
     public function index()
     {
           // Show only Pakistan cities (country_id = 1)
-          $allCity = city::with('iqraKhan')
+          $allCity = City::with('iqraKhan')
                         ->where('country_id', 1)
                         ->orderBy('city_id', 'desc')
                         ->paginate(10); 
@@ -29,7 +29,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        $allCountry = country::all();
+        $allCountry = Country::all();
         $pageName = 'Add New City';
         return view('city.create', compact('pageName', 'allCountry'));
     }
@@ -50,7 +50,7 @@ class CityController extends Controller
             'city.unique' => 'This city already exists.',
         ]);
 
-        city::create([
+        City::create([
             'country_id' => $request->country,
             'city_name' => $request->city,
             'city_description' => $request->city_description
@@ -72,8 +72,8 @@ class CityController extends Controller
      */
 public function edit(string $id)
 {
-    $city = city::findOrFail($id);
-    $allCountry = country::all();
+    $city = City::findOrFail($id);
+    $allCountry = Country::all();
     $pageName = 'Edit City';
     return view('city.edit', compact('pageName', 'city', 'allCountry'));
 }
@@ -91,7 +91,7 @@ public function update(Request $request, string $id)
         'city.unique' => 'This city already exists.',
     ]);
 
-    $city = city::findOrFail($id);
+    $city = City::findOrFail($id);
     $city->update([
         'country_id' => $request->country,
         'city_name' => $request->city,
@@ -107,7 +107,7 @@ public function update(Request $request, string $id)
      */
     public function destroy(string $id)
     {
-         city::destroy($id); 
+         City::destroy($id); 
 
         
     return redirect()->route('city.index')->with('success', 'City deleted successfully!');

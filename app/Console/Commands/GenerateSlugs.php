@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\JobCategory;
-use App\Models\city;
+use App\Models\City;
 use App\Models\Company;
 use Illuminate\Support\Str;
 
@@ -38,7 +38,7 @@ class GenerateSlugs extends Command
         $this->info('Generated slugs for ' . $categories->count() . ' categories');
 
         // Generate slugs for cities
-        $cities = city::all();
+        $cities = City::all();
         foreach ($cities as $city) {
             $city->slug = Str::slug($city->city_name);
             $city->save();

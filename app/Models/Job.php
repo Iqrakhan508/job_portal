@@ -78,12 +78,12 @@ class Job extends Model
 
     public function country()
     {
-        return $this->belongsTo(country::class, 'country_id', 'country_id');
+        return $this->belongsTo(Country::class, 'country_id', 'country_id');
     }
 
     public function city()
     {
-        return $this->belongsTo(city::class, 'city_id', 'city_id');
+        return $this->belongsTo(City::class, 'city_id', 'city_id');
     }
 
     public function jobType()

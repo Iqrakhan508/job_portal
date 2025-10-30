@@ -31,11 +31,11 @@ class User extends Authenticatable
 
 
      public function countryNAME() {
-        return $this->belongsTo(country::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
      public function cityNAME() {
-        return $this->belongsTo(city::class, 'city_id');
+        return $this->belongsTo(City::class, 'city_id');
     }
 
 

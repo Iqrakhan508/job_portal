@@ -13,7 +13,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-         $allCountry = country::where('country_status', 1)
+         $allCountry = Country::where('country_status', 1)
                               ->orderBy('country_id', 'desc')
                               ->paginate(10); 
         $pageName = 'All Countries';
@@ -96,7 +96,7 @@ public function update(Request $request, string $id)
      */
     public function destroy(string $id)
     {
-        country::destroy($id); 
+        Country::destroy($id); 
 
         
     return redirect()->route('country.index')->with('success', 'Country deleted successfully!');
