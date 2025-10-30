@@ -21,13 +21,13 @@
             <div class="job-main">
                 <div class="job-description">
                     <h3 class="section-title">Job Description</h3>
-                    <p>{!! nl2br(e($job->description)) !!}</p>
+                    <p>{!! htmlspecialchars_decode($job->description) !!}</p>
                 </div>
 
                 @if($job->requirements)
                 <div class="job-requirements">
                     <h3 class="section-title">Requirements</h3>
-                    <p>{!! nl2br(e($job->requirements)) !!}</p>
+                    <p>{!! htmlspecialchars_decode($job->requirements) !!}</p>
                 </div>
                 @endif
 
