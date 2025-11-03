@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="col-md-6 mx-auto">
-        <div class="card p-4">
+        <div class="card p-4 pb-5 mb-4" style="padding-bottom: 3rem !important;">
             <h3 class="text-center">Login</h3>
 
             {{-- Session Messages --}}
@@ -39,21 +39,16 @@
                 @csrf
 
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Email*</label>
                     <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
+                    <label>Password*</label>
                     <input type="password" name="password" class="form-control">
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
-
-                <p class="text-muted text-center mt-3">
-                    <small>Do not have an account?</small>
-                </p>
-                <a class="btn btn-sm btn-secondary btn-block" href="{{ route('Register') }}">Create an account</a>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
             </form>
         </div>
     </div>
