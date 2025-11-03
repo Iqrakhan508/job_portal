@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $allUser = User::with('countryNAME','cityNAME')
+                       ->where('user_id', '!=', 1) // Hide user ID 1 from listing
                        ->orderBy('user_id', 'desc')
                        ->paginate(5);
         // $allUser = User::all();

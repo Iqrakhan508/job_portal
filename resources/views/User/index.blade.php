@@ -29,7 +29,15 @@
             <td>{{ $user->cityNAME->city_name ?? 'N/A' }}</td> <!-- Agar record hai to city_name dikhayega, warna 'N/A' dikhayega. -->
 
             <!-- <td>{{$user->city_id}}</td> -->
-            <td>{{$user->user_status}}</td>
+            <td>
+                @if($user->user_status == 1)
+                    <button class="btn btn-sm btn-success" disabled>Active</button>
+                @elseif($user->user_status == 2)
+                    <button class="btn btn-sm btn-danger" disabled>Inactive</button>
+                @else
+                    <span class="badge badge-secondary">{{$user->user_status}}</span>
+                @endif
+            </td>
             <td>
                 <a href="{{ route('users.edit', $user->user_id) }}">
                     <button class="btn btn-primary">Edit</button>
