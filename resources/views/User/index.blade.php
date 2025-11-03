@@ -31,9 +31,9 @@
             <!-- <td>{{$user->city_id}}</td> -->
             <td>
                 @if($user->user_status == 1)
-                    <button class="btn btn-sm btn-success" disabled>Active</button>
+                    <span class="btn btn-sm btn-success">Active</span>
                 @elseif($user->user_status == 2)
-                    <button class="btn btn-sm btn-danger" disabled>Inactive</button>
+                    <span class="btn btn-sm btn-danger">Inactive</span>
                 @else
                     <span class="badge badge-secondary">{{$user->user_status}}</span>
                 @endif
