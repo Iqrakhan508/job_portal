@@ -255,15 +255,36 @@ class JobController extends Controller
                 $oldPath = (strpos($job->image, 'job_images/') === 0)
                     ? $job->image
                     : 'job_images/' . $job->image;
+        
+                // Delete from storage/app/public
                 if (Storage::disk('public')->exists($oldPath)) {
                     Storage::disk('public')->delete($oldPath);
                 }
+        
+                // Delete also from public/storage/job_images (manual copy)
+                $publicOldPath = public_path('storage/job_images/' . basename($job->image));
+                if (file_exists($publicOldPath)) {
+                    unlink($publicOldPath);
+                }
             }
-
+        
             // Store new image and keep only filename in DB
             $path = $request->file('image')->store('job_images', 'public');
-            $validated['image'] = basename($path);
+            $filename = basename($path);
+            $validated['image'] = $filename;
+        
+            // ✅ Copy new image manually to public/storage/job_images
+            $source = storage_path('app/public/job_images/' . $filename);
+            $destinationDir = public_path('storage/job_images');
+            $destination = $destinationDir . '/' . $filename;
+        
+            if (!file_exists($destinationDir)) {
+                mkdir($destinationDir, 0777, true);
+            }
+        
+            copy($source, $destination);
         }
+        
 
         $job->update($validated);
 
