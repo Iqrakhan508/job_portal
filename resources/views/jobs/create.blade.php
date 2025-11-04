@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-<form method="POST" action="{{ route('jobs.store') }}">
+<form method="POST" action="{{ route('jobs.store') }}" enctype="multipart/form-data">
     @csrf
     
     <!-- Basic Information -->
@@ -212,6 +212,16 @@
                 @endforeach
             </div>
             @error('skills') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
+    </div>
+
+    <!-- Optional Job Image -->
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label">Image (optional)</label>
+        <div class="col-lg-10">
+            <input type="file" name="image" class="form-control" accept="image/*">
+            <small class="text-muted">You can upload a job related image. Max 2MB.</small>
+            @error('image') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
     </div>
 

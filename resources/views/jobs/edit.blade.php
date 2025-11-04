@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-<form method="POST" action="{{ route('jobs.update', $job->id) }}">
+<form method="POST" action="{{ route('jobs.update', $job->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     
@@ -213,6 +213,25 @@
                 @endforeach
             </div>
             @error('skills') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
+    </div>
+
+    <!-- Optional Job Image -->
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label">Image (optional)</label>
+        <div class="col-lg-10">
+            <input type="file" name="image" class="form-control" accept="image/*">
+            @if($job->image)
+    <div class="mt-2">
+        <img 
+            src="{{ asset('storage/job_images/' . $job->image) }}" 
+            alt="Current Image" 
+            style="max-height:80px;border:1px solid #e5e6e7;border-radius:4px;">
+    </div>
+@endif
+
+
+
         </div>
     </div>
 

@@ -22,6 +22,7 @@ class Job extends Model
         'description',
         'responsibilities',
         'requirements',
+        'image',
         'min_experience_months',
         'salary_min',
         'salary_max',

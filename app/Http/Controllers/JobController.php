@@ -12,6 +12,7 @@ use App\Models\City;
 use App\Models\JobType;
 use App\Models\Skill;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -59,7 +60,8 @@ class JobController extends Controller
             'posting_date' => 'required|date',
             'last_apply_date' => 'required|date',
             'skills' => 'nullable|array',
-            'skills.*' => 'exists:skills,id'
+            'skills.*' => 'exists:skills,id',
+            'image' => 'nullable|image|max:2048'
         ], [
             'title.required' => 'Job title is required.',
             'title.string' => 'Job title must be a valid text.',
@@ -118,6 +120,12 @@ class JobController extends Controller
         $validated['currency'] = 'PKR';
         $validated['is_remote'] = 0;
         $validated['is_active'] = 1;
+
+        // Handle optional image upload
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('job_images', 'public');
+            $validated['image'] = basename($path); // store only filename like abc.jpg
+        }
 
         $job = Job::create($validated);
         
@@ -165,7 +173,8 @@ class JobController extends Controller
             'posting_date' => 'required|date',
             'last_apply_date' => 'required|date',
             'skills' => 'nullable|array',
-            'skills.*' => 'exists:skills,id'
+            'skills.*' => 'exists:skills,id',
+            'image' => 'nullable|image|max:2048'
         ], [
             'title.required' => 'Job title is required.',
             'title.string' => 'Job title must be a valid text.',
@@ -226,6 +235,24 @@ class JobController extends Controller
         $validated['is_active'] = 1;
 
         $job = Job::findOrFail($id);
+
+        // Handle optional image upload on update
+        if ($request->hasFile('image')) {
+            // Delete old image if present
+            if (!empty($job->image)) {
+                $oldPath = (strpos($job->image, 'job_images/') === 0)
+                    ? $job->image
+                    : 'job_images/' . $job->image;
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            // Store new image and keep only filename in DB
+            $path = $request->file('image')->store('job_images', 'public');
+            $validated['image'] = basename($path);
+        }
+
         $job->update($validated);
 
         // Sync skills

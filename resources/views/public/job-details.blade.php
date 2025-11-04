@@ -22,6 +22,17 @@
                 <div class="job-description">
                     <h3 class="section-title">Job Description</h3>
                     <p>{!! htmlspecialchars_decode($job->description) !!}</p>
+                    @if(!empty($job->image))
+                        @php
+                            $imageRel = (strpos($job->image, 'job_images/') === 0) ? $job->image : 'job_images/' . $job->image;
+                            $exists = \Illuminate\Support\Facades\Storage::disk('public')->exists($imageRel);
+                            $publicUrl = $exists ? \Illuminate\Support\Facades\Storage::url($imageRel) : null;
+                        @endphp
+                        @if($exists)
+                            <p><img src="{{ $publicUrl }}" alt="Job Image" style="max-width:100%;height:auto;border-radius:6px;border:1px solid #e5e6e7;"></p>
+                        @endif
+                    @endif
+
                 </div>
 
                 @if($job->requirements)
