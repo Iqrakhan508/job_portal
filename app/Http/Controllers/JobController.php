@@ -124,8 +124,20 @@ class JobController extends Controller
         // Handle optional image upload
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('job_images', 'public');
-            $validated['image'] = basename($path); // store only filename like abc.jpg
+            $filename = basename($path);
+            $validated['image'] = $filename;
+        
+            // Copy image to public/storage/job_images manually
+            $source = storage_path('app/public/job_images/' . $filename);
+            $destination = public_path('storage/job_images/' . $filename);
+        
+            if (!file_exists(public_path('storage/job_images'))) {
+                mkdir(public_path('storage/job_images'), 0777, true);
+            }
+        
+            copy($source, $destination);
         }
+        
 
         $job = Job::create($validated);
         
